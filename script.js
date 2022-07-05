@@ -164,14 +164,55 @@ const restar = () => {
   // eurosDOM.innerText--
 }
 
+const addItemToList = () => {
+  console.log("aqui vamos a agregar un li al ul")
+  // 1. necesitamos el texto a agregar al li
+  console.log(inputDOM.value)
+  let textoLi = inputDOM.value
+  // 2. crear el elemento li
+  let liDOM = document.createElement("li")
+  // 3. le agregamos el texto al li
+  liDOM.innerText = textoLi
+  // 4. agrega el li al ul
+  listDOM.append(liDOM)
+}
+
+const deleteButton = (event) => {
+  console.log(event)
+  console.log("aqui intentamos borrar el boton")
+  // event siempre será el accionador que ocasiona el evento
+  // event.target siempre será el elemento DOM sobre el cual se hace el evento
+  // .remove() ????
+  let elBotonDOM = event.target
+  // elBotonDOM.remove()
+
+  // tambien podemos acceser al elemento padre de cualquier elemento de DOM
+  // parentNode
+  let parentDOM = elBotonDOM.parentNode
+  parentDOM.remove()
+}
+
 // elementos de DOM
 const eventTitleDOM = document.querySelector("#event-title");
 const buttonIncreaseDOM = document.querySelector("#increment");
 const eurosDOM = document.querySelector("#counter span")
 const buttonDecreaseDOM = document.querySelector("#decrement")
+const inputDOM = document.querySelector("#name")
+const buttonAddDOM = document.querySelector("#add-btn")
+const listDOM = document.querySelector("#output-list")
+const lastBtnsDOM = document.querySelectorAll(".last-btn") // nodeList
 
-// event listeners
-eventTitleDOM.addEventListener("mouseenter", mouseEnterTitle);
-eventTitleDOM.addEventListener("mouseleave", mouseLeaveTitle);
-buttonIncreaseDOM.addEventListener("click", count)
-buttonDecreaseDOM.addEventListener("click", restar)
+window.addEventListener("load", () => {
+// espera que la pagina cargue correctamente, y luego agrega los eventListeners
+  
+  // event listeners
+  eventTitleDOM.addEventListener("mouseenter", mouseEnterTitle);
+  eventTitleDOM.addEventListener("mouseleave", mouseLeaveTitle);
+  buttonIncreaseDOM.addEventListener("click", count)
+  buttonDecreaseDOM.addEventListener("click", restar)
+  buttonAddDOM.addEventListener("click", addItemToList)
+  lastBtnsDOM.forEach((eachBtnDOM, index) => {
+    eachBtnDOM.addEventListener("click", deleteButton)
+  })
+
+})
